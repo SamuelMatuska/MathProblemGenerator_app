@@ -22,6 +22,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="register.php">Register</a>
+                        <p>blaba</p>
                     </li>
                 </ul>
             </div>
