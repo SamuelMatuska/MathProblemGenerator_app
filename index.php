@@ -24,6 +24,7 @@
                         <a class="nav-link" href="register.php">Register</a>
                         <p>blabla</p>
                         <p>blabla</p>
+                        <p>balba</p>
                     </li>
                 </ul>
             </div>
