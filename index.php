@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Math App2</title>
+    <title>Math App</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -22,9 +22,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="register.php">Register</a>
-                        <p>blabla</p>
-                        <p>blabla</p>
-                        <p>balba</p>
                     </li>
                 </ul>
             </div>
