@@ -69,37 +69,37 @@ if (isset($_POST['register'])) {
 
         // Validacia username
         if (checkEmpty($_POST['username']) === true) {
-            $errmsg .= "<p class='error-message'>Zadajte username.</p>";
+            $errmsg .= "<p class='error-message'>Enter username!</p>";
         } elseif (checkLength($_POST['username'], 6,32) === false) {
-            $errmsg .= "<p class='error-message'>Username musi mat min. 6 a max. 32 znakov.</p>";
+            $errmsg .= "<p class='error-message'>Username must be long atleat 6 characters and maximum 32 characters! </p>";
         } elseif (checkUsername($_POST['username']) === false) {
-            $errmsg .= "<p class='error-message'>Username moze obsahovat iba velke, male pismena, cislice a podtrznik.</p>";
+            $errmsg .= "<p class='error-message'>Username have to be only capital letters, small letters, number or _ !!</p>";
         }
 
         if (userExist($db, $_POST['username'], $_POST['studentID']) === true) {
-            $errmsg .= "<p class='error-message' >Pouzivatel s tymto studentID / username uz existuje.</p>";
+            $errmsg .= "<p class='error-message' >User with same studentID/username already exists!</p>";
         }
 
         if (checkEmpty($_POST['password']) === true) {
-            $errmsg .= "<p class='error-message' >Enter a password.</p>";
+            $errmsg .= "<p class='error-message' >Enter a password!</p>";
         } elseif (checkLength($_POST['password'], 8, 32) === false) {
-            $errmsg .= "<p class='error-message'>Heslo musí mať 8 až 32 znakov.</p>";
+            $errmsg .= "<p class='error-message'>Password must be long 8 to 32 characters!</p>";
         } elseif (!preg_match('/\d/', $_POST['password'])) {
-            $errmsg .= "<p class='error-message'>Heslo musí obsahovať aspoň jednu číslicu.</p>";
+            $errmsg .= "<p class='error-message'>Password needs to contain at least one number!</p>";
         } elseif (!preg_match('/[a-zA-Z]/', $_POST['password'])) {
-            $errmsg .= "<p class='error-message'>Heslo musí obsahovať aspoň jedno písmeno.</p>";
+            $errmsg .= "<p class='error-message'>Password needs to contain at least one letter!</p>";
         }
         if (checkEmpty($_POST['firstname']) === true) {
             $errmsg .= "<p class='error-message'>Enter your first name.</p>";
         } elseif (!preg_match('/^[A-Z][a-z]{0,30}$/', $_POST['firstname'])) {
-            $errmsg .= "<p class='error-message'>Meno musí začínať veľkým písmenom a byť dlhé najviac 30 znakov.</p>";
+            $errmsg .= "<p class='error-message'>Name needs to begin with capital letter and maximum lenght is 30 characters!</p>";
         }
 
         // Validacia lastname
         if (checkEmpty($_POST['lastname']) === true) {
             $errmsg .= "<p class='error-message'>Enter your last name.</p>";
         } elseif (!preg_match('/^\p{Lu}\p{Ll}{0,30}$/u', $_POST['lastname'])) {
-            $errmsg .= "<p class='error-message'>Priezvisko musí začínať veľkým písmenom a byť dlhé najviac 30 znakov.</p>";
+            $errmsg .= "<p class='error-message'>Last name needs to begin with capital letter and maximum lenght is 30 characters!</p>";
         }        
 
         echo $errmsg;

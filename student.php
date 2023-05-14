@@ -1,3 +1,26 @@
+<?php
+session_start();
+
+// Check if the user is logged in as an admin
+if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
+    if (basename($_SERVER['PHP_SELF']) !== 'admin.php') {
+        header("Location: admin.php");
+        exit();
+    }
+} elseif (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+    // Check if the user is logged in as a basic user
+    if (basename($_SERVER['PHP_SELF']) !== 'student.php') {
+        header("Location: student.php");
+        exit();
+    }
+} else {
+    // If the user is not logged in, redirect them to the index.php page
+    if (basename($_SERVER['PHP_SELF']) !== 'index.php') {
+        header("Location: index.php");
+        exit();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

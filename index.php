@@ -1,17 +1,24 @@
 <?php
 session_start();
 
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: student.html");
-    exit;
-}
-
-if (isset($_SESSION['success'])) {
-    echo "<p class='success-message'>".$_SESSION['success']."</p>";
-    unset($_SESSION['success']); // Clear the success message from the session
-} elseif (isset($_SESSION['error'])) {
-    echo "<p class='error-message'>".$_SESSION['error']."</p>";
-    unset($_SESSION['error']); // Clear the error message from the session
+// Check if the user is logged in as an admin
+if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
+    if (basename($_SERVER['PHP_SELF']) !== 'admin.php') {
+        header("Location: admin.php");
+        exit();
+    }
+} elseif (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+    // Check if the user is logged in as a basic user
+    if (basename($_SERVER['PHP_SELF']) !== 'student.php') {
+        header("Location: student.php");
+        exit();
+    }
+} else {
+    // If the user is not logged in, redirect them to the index.php page
+    if (basename($_SERVER['PHP_SELF']) !== 'index.php') {
+        header("Location: index.php");
+        exit();
+    }
 }
 ?>
 <!DOCTYPE html>
