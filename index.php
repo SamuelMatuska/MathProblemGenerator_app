@@ -1,3 +1,19 @@
+<?php
+session_start();
+
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    header("location: student.html");
+    exit;
+}
+
+if (isset($_SESSION['success'])) {
+    echo "<p class='success-message'>".$_SESSION['success']."</p>";
+    unset($_SESSION['success']); // Clear the success message from the session
+} elseif (isset($_SESSION['error'])) {
+    echo "<p class='error-message'>".$_SESSION['error']."</p>";
+    unset($_SESSION['error']); // Clear the error message from the session
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,9 +41,8 @@
             <form action="backend/login.php" method="POST">
                 <h1>Sign in</h1>
                 <span>or use your account</span>
-                <input type="text" placeholder="Username" required/>
-                <input type="password" placeholder="Password" required/>
-                <a href="#">Forgot your password?</a>
+                <input type="text" name="username" id="username" placeholder="Username" required/>
+                <input type="password" name="password" id="password" placeholder="Password" required/>
                 <button type="submit" name="login">Sign In</button>
             </form>
         </div>

@@ -1,11 +1,9 @@
 <?php
-header("Location: ../index.html");
 session_start();
+//connectiong to database
+require_once 'connection.php';
 
 if (isset($_POST['register'])) {  
-    //connectiong to database
-    require_once 'connection.php';
-
     // ------- Pomocne funkcie -------
     function checkEmpty($field) {
         // Funkcia pre kontrolu, ci je premenna po orezani bielych znakov prazdna.
@@ -30,14 +28,6 @@ if (isset($_POST['register'])) {
     function checkUsername($username) {
         // Funkcia pre kontrolu, ci username obsahuje iba velke, male pismena, cisla a podtrznik.
         if (!preg_match('/^[a-zA-Z0-9_]+$/', trim($username))) {
-            return false;
-        }
-        return true;
-    }
-
-    function checkGmail($email) {
-        // Funkcia pre kontrolu, ci zadany email je gmail.
-        if (!preg_match('/^[\w.+\-]+@gmail\.com$/', trim($email))) {
             return false;
         }
         return true;
@@ -68,6 +58,13 @@ if (isset($_POST['register'])) {
 
     // ------- ------- ------- -------
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $username = $_POST['username'];
+        $studentID = $_POST['studentID'];
+        $password = $_POST['password'];
+
         $errmsg = "";
 
         // Validacia username
@@ -92,32 +89,28 @@ if (isset($_POST['register'])) {
         } elseif (!preg_match('/[a-zA-Z]/', $_POST['password'])) {
             $errmsg .= "<p class='error-message'>Heslo musí obsahovať aspoň jedno písmeno.</p>";
         }
-        if (checkEmpty($_POST['first_name']) === true) {
+        if (checkEmpty($_POST['firstname']) === true) {
             $errmsg .= "<p class='error-message'>Enter your first name.</p>";
-        } elseif (!preg_match('/^[A-Z][a-z]{0,30}$/', $_POST['first_name'])) {
+        } elseif (!preg_match('/^[A-Z][a-z]{0,30}$/', $_POST['firstname'])) {
             $errmsg .= "<p class='error-message'>Meno musí začínať veľkým písmenom a byť dlhé najviac 30 znakov.</p>";
         }
 
         // Validacia lastname
-        if (checkEmpty($_POST['last_name']) === true) {
+        if (checkEmpty($_POST['lastname']) === true) {
             $errmsg .= "<p class='error-message'>Enter your last name.</p>";
-        } elseif (!preg_match('/^[A-Z][a-z]{0,30}$/', $_POST['last_name'])) {
+        } elseif (!preg_match('/^\p{Lu}\p{Ll}{0,30}$/u', $_POST['lastname'])) {
             $errmsg .= "<p class='error-message'>Priezvisko musí začínať veľkým písmenom a byť dlhé najviac 30 znakov.</p>";
-        }
+        }        
+
+        echo $errmsg;
 
         if (empty($errmsg)) {
-            $sql = "INSERT INTO users (first_name, last_name, username, studentID, password) VALUES (:first_name, :last_name, :username, :studentID, :password)";
-
-            $first_name = $_POST['firstname'];
-            $last_name = $_POST['lastname'];
-            $username = $_POST['username'];
-            $studentID = $_POST['studentID'];
-            $hashed_password = password_hash($_POST['password'], PASSWORD_ARGON2ID);
+            $sql = "INSERT INTO users (first_name, last_name, username, studentID, password) VALUES (:firstname, :lastname, :username, :studentID, :password)";
             // Bind parametrov do SQL
+            $hashed_password = password_hash($_POST['password'], PASSWORD_ARGON2ID);
             $stmt = $db->prepare($sql);
-
-            $stmt->bindParam(":first_name", $first_name, PDO::PARAM_STR);
-            $stmt->bindParam(":last_name", $last_name, PDO::PARAM_STR);
+            $stmt->bindParam(":firstname", $firstname, PDO::PARAM_STR);
+            $stmt->bindParam(":lastname", $lastname, PDO::PARAM_STR);
             $stmt->bindParam(":username", $username, PDO::PARAM_STR);
             $stmt->bindParam(":studentID", $studentID, PDO::PARAM_STR);
             $stmt->bindParam(":password", $hashed_password, PDO::PARAM_STR);
@@ -125,10 +118,16 @@ if (isset($_POST['register'])) {
             $stmt->execute();
 
             unset($stmt);
+            unset($_SESSION['error']);
+            $_SESSION['success'] = "Registration successful!";
+            header("Location: ../index.php");
+            exit;
+        }else {
+            $_SESSION['error'] = $errmsg;
+            header("Location: ../index.php?error=true");
+            exit;
         }
         unset($pdo);
-        header("Location: ../index.html");
-        exit;
     }  
 }
 ?>
