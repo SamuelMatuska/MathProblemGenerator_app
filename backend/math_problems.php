@@ -4,7 +4,8 @@
     <!-- Load MathJax -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="../math_problems.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style_form.css">
 </head>
 <body>
 <?php
@@ -26,6 +27,7 @@ $problems = [];
 foreach ($paths as $path) {
     // Read the file
     $file = file_get_contents($path);
+    
 
     // Apply the pattern
     preg_match_all($pattern, $file, $matches);
@@ -56,10 +58,12 @@ foreach ($paths as $path) {
 // Select a random problem
 $randomProblem = $problems[array_rand($problems)];
 
+
+
 echo "<h2>Problem ID: " . $randomProblem["id"] . "</h2>";
 echo "<h3>Problem Statement: </h3>" . $randomProblem["problem"];
 echo "<h3>Solution: </h3>" . $randomProblem["solution"];
 ?>
-<button><a href="math_problems.php">Generate new question</a></button>
+<button id="reset_button"><a href="math_problems.php">Generate new question</a></button>
 </body>
 </html>

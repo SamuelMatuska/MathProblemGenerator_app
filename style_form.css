@@ -22,6 +22,7 @@ h1 {
 }
 
 h2 {
+	margin-top: 5%;
 	text-align: center;
 }
 
@@ -98,7 +99,7 @@ input {
 	overflow: hidden;
 	width: 1080px;
 	max-width: 100%;
-	min-height: 620px;
+	min-height: 650px;
 }
 
 .form-container {
@@ -209,4 +210,35 @@ input {
 
 .container.right-panel-active .overlay-right {
 	transform: translateX(20%);
+}
+
+.problem-image {
+    max-width: 50%;
+    height: auto;
+	border:black 5px ;
+}
+
+#reset_button{
+	border-radius: 20px;
+	border: 1px solid #FF4B2B;
+	background: linear-gradient(to right, rgb(255, 75, 43), #FF416C);
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+#reset_button a {
+    text-decoration: none;
+}
+
+#reset_button:hover {
+    background: linear-gradient(to right, #FF416C, #ff5335);
+}
+
+#problem_container{
+	border: black;
 }
