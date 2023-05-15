@@ -34,8 +34,9 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
 </head>
 <body>
 <nav>
+        <a href="admin.php">Admin home page</a> 
         <a href="studentslist.php">List of your Students</a>    
-        <a href="logout.php"> LOG OUT</a>
+        <a href="backend/logout.php"> LOG OUT</a>
     </nav>
 </body>
 </html>

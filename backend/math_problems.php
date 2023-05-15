@@ -8,7 +8,8 @@
 </head>
 <body>
 <nav>
-        <a href="student.php">Student home page</a>    
+        <a href="../student.php">Student home page</a> 
+        <a href="math_problems.php">Excersises</a>   
         <a href="logout.php"> LOG OUT</a>
 </nav>
 <?php

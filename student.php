@@ -21,6 +21,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,8 +34,11 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
 </head>
 <body>
 <nav>
-        <a href="student.php">Student home page</a>    
-        <a href="logout.php"> LOG OUT</a>
+        <a href="student.php">Student home page</a> 
+        <a href="backend/math_problems.php">Excersises</a>   
+        <a href="backend/logout.php"> LOG OUT</a>
     </nav>
+
+
 </body>
 </html>
