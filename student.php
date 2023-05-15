@@ -1,4 +1,5 @@
 <?php
+//connectiong to database
 session_start();
 
 // Check if the user is logged in as an admin
@@ -34,11 +35,14 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
 </head>
 <body>
 <nav>
-        <a href="student.php">Student home page</a> 
-        <a href="backend/math_problems.php">Excersises</a>   
-        <a href="backend/logout.php"> LOG OUT</a>
-    </nav>
-
-
+    <a href="student.php">Student home page</a> 
+    <a href="backend/math_problems.php">Excersises</a>   
+    <a href="backend/logout.php"> LOG OUT</a>
+</nav>
+<h1>Welcome, <?php echo htmlspecialchars($_SESSION['firstname'] . ' ' . $_SESSION['lastname']); ?>!</h1>
+<audio autoplay>
+  <source src="welcome.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
 </body>
 </html>

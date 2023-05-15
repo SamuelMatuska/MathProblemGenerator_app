@@ -49,7 +49,7 @@ if (isset($_GET['id'])) {
         <nav>
             <a href="admin.php">Admin home page</a>   
             <a href="studentslist.php">List of your Students</a> 
-            <a href="logout.php"> LOG OUT</a>
+            <a href="backend/logout.php"> LOG OUT</a>
         </nav>
             <h1>Edit User</h1>
             <?php if (!empty($message)) : ?>
@@ -75,7 +75,6 @@ if (isset($_GET['id'])) {
     // Handle case where ID is not provided
     echo "Invalid user ID.";
 }
-
 // Close the database connection
 $db = null;
 ?>
