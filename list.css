@@ -1,0 +1,86 @@
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: #ffffff;
+	display: flex;
+	flex-direction: column;
+	font-family: 'Montserrat', sans-serif;
+	height: 100vh;
+	margin: -20px 0 50px;
+}
+
+h1 {
+	font-weight: bold;
+	margin: 0;
+}
+
+h2 {
+	margin-top: 5%;
+	text-align: center;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+
+a {
+	color: #333;
+	font-size: 14px;
+	text-decoration: none;
+	margin: 15px 0;
+}
+
+nav {
+    background-color: #333;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    margin-top: 0;
+    background: linear-gradient(to right, #FF416C, rgb(255, 75, 43));
+    display: flex;
+    align-items: center; /* This line will align the items vertically */
+	padding-left: 30px;
+}
+nav a {
+	float: left;
+	display: block;
+	color: #000000;
+	text-align: center;
+	padding: 10px 16px;
+	text-decoration: none;
+	font-size: 15px;
+}
+nav a:hover {
+	background-color: #000000;
+	color: rgb(255, 255, 255);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 80px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
