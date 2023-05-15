@@ -11,23 +11,17 @@ if (isset($_GET['id'])) {
     // Check if the form is submitted for updating user data
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Retrieve the submitted data
-        $firstName = $_POST['first_name'];
-        $lastName = $_POST['last_name'];
-        $username = $_POST['username'];
-        $studentID = $_POST['studentID'];
+        $type = $_POST['type'];
 
         // Update the user data in the database
-        $stmt = $db->prepare("UPDATE users SET first_name = :first_name, last_name = :last_name, username = :username, studentID = :studentID WHERE id = :id");
-        $stmt->bindParam(":first_name", $firstName, PDO::PARAM_STR);
-        $stmt->bindParam(":last_name", $lastName, PDO::PARAM_STR);
-        $stmt->bindParam(":username", $username, PDO::PARAM_STR);
-        $stmt->bindParam(":studentID", $studentID, PDO::PARAM_STR);
+        $stmt = $db->prepare("UPDATE users SET type = :type WHERE id = :id");
+        $stmt->bindParam(":type", $type, PDO::PARAM_STR);
         $stmt->bindParam(":id", $userId, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
-            $message = "User information updated successfully.";
+            $message = "User type updated successfully.";
         } else {
-            $message = "Failed to update user information.";
+            $message = "Failed to update user type.";
         }
     }
 
@@ -48,21 +42,26 @@ if (isset($_GET['id'])) {
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Edit User</title>
+            <link rel="stylesheet" href="style_form.css?v=<?php echo time(); ?>">
+
         </head>
         <body>
+        <nav>
+            <a href="admin.php">Admin home page</a>   
+            <a href="studentslist.php">List of your Students</a> 
+            <a href="logout.php"> LOG OUT</a>
+        </nav>
             <h1>Edit User</h1>
             <?php if (!empty($message)) : ?>
                 <p><?php echo $message; ?></p>
             <?php endif; ?>
             <form method="POST">
                 <label for="first_name">First Name:</label>
-                <input type="text" name="first_name" value="<?php echo $user['first_name']; ?>"><br>
+                <span><?php echo $user['first_name']; ?></span><br>
                 <label for="last_name">Last Name:</label>
-                <input type="text" name="last_name" value="<?php echo $user['last_name']; ?>"><br>
-                <label for="username">Username:</label>
-                <input type="text" name="username" value="<?php echo $user['username']; ?>"><br>
-                <label for="studentID">Student ID:</label>
-                <input type="text" name="studentID" value="<?php echo $user['studentID']; ?>"><br>
+                <span><?php echo $user['last_name']; ?></span><br>
+                <label for="type">Type:</label>
+                <input type="text" name="type" value="<?php echo $user['type']; ?>"><br>
                 <button type="submit">Update</button>
             </form>
         </body>
@@ -80,4 +79,3 @@ if (isset($_GET['id'])) {
 // Close the database connection
 $db = null;
 ?>
-
