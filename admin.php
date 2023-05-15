@@ -10,7 +10,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
 } elseif (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     // Check if the user is logged in as a basic user
     if (basename($_SERVER['PHP_SELF']) !== 'student.php') {
-        header("Location: student.php");
+        header("Location: student.php"); 
         exit();
     }
 } else {

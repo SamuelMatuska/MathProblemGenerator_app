@@ -66,7 +66,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
                     <button class="ghost" id="signUp">Sign Up</button>
                 </div>
             </div>
-        </div>
+        </div>     
     </div>
 </body>
 </html>
