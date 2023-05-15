@@ -6,7 +6,7 @@
 }
 
 body {
-	background: #f6f5f7;
+	background: #ffffff;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -24,7 +24,13 @@ h1 {
 h2 {
 	margin-top: 5%;
 	text-align: center;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
+.bold {
+    font-weight: bold;
+}
+
 
 p {
 	font-size: 14px;
@@ -229,10 +235,16 @@ input {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
+	
 }
 
 #reset_button a {
     text-decoration: none;
+}
+
+#reset_button a:hover {
+    text-decoration: none;
+	color:white;
 }
 
 #reset_button:hover {
@@ -241,4 +253,31 @@ input {
 
 #problem_container{
 	border: black;
+}
+
+nav {
+    background-color: #333;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    margin-top: 0;
+    background: linear-gradient(to right, rgb(255, 75, 43), #FF416C);
+    display: flex;
+    align-items: center; /* This line will align the items vertically */
+	padding-left: 30px;
+}
+nav a {
+	float: left;
+	display: block;
+	color: #000000;
+	text-align: center;
+	padding: 10px 16px;
+	text-decoration: none;
+	font-size: 15px;
+}
+nav a:hover {
+	background-color: #000000;
+	color: rgb(255, 255, 255);
 }

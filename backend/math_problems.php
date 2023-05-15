@@ -4,10 +4,13 @@
     <!-- Load MathJax -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../style_form.css">
 </head>
 <body>
+<nav>
+        <a href="student.php">Student home page</a>    
+        <a href="logout.php"> LOG OUT</a>
+</nav>
 <?php
 // Define the pattern to match task and solution pairs
 $pattern = '/\\\\section\*\{(.*?)\}.*?\\\\begin\{task\}(.*?)\\\\end\{task\}.*?\\\\begin\{solution\}(.*?)\\\\end\{solution\}/s';
@@ -58,12 +61,13 @@ foreach ($paths as $path) {
 // Select a random problem
 $randomProblem = $problems[array_rand($problems)];
 
-
-
 echo "<h2>Problem ID: " . $randomProblem["id"] . "</h2>";
 echo "<h3>Problem Statement: </h3>" . $randomProblem["problem"];
-echo "<h3>Solution: </h3>" . $randomProblem["solution"];
+echo '<div id="solution" style="display: none;"><h3 align="center">Solution: </h3>' . $randomProblem["solution"] . '</div>';
 ?>
+<a href="#" id="toggle_solution"><strong>Show Solution</strong></a>
 <button id="reset_button"><a href="math_problems.php">Generate new question</a></button>
+<script src="script.js"></script>
 </body>
 </html>
+

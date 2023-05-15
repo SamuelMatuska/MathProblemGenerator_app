@@ -29,32 +29,13 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
     <title>Admin page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="style_form.css">
+
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">ADMIN</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="admin.html">Admin home page</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="admin.html">...</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="backend/logout.php" class="nav-link">
-                            LOG OUT
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+<nav>
+        <a href="admin.php">Admin home page</a>    
+        <a href="logout.php"> LOG OUT</a>
     </nav>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
