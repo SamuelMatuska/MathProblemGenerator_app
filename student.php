@@ -69,7 +69,7 @@ mysqli_close($connection);
 <?php
 if($rightAnswer == 0 && $answered == 0) {
 ?>
-    <h3 style="font-size:30px">You havent done any excercises yet. To start head into the "Excersises" section please.</h3>
+    <h3 style="font-size:30px">You havent done any excercises yet. To start, head into the "Excersises" section please.</h3>
 <?php
 } else {
 ?>

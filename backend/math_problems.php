@@ -1,5 +1,8 @@
 <?php
 session_Start();
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 ?>
 <html>
 <head>
@@ -53,7 +56,6 @@ session_Start();
     $randomProblem = $problems[array_rand($problems)];
     echo "<h2 id='problemid'>Problem ID: " . $randomProblem["id"] . "</h2>";
     echo "<h3 id='problemstatement'>Problem Statement: </h3>" . $randomProblem["problem"];
-    echo '<div id="solution" style="display: none;"><h3 align="center">Solution: </h3>' . stripslashes($randomProblem["solution"]) . '</div>';
     ?>
     <a style="text-decoration: underline" href="https://inspera.atlassian.net/wiki/spaces/KB/pages/62062830/MathQuill+symbols" target="_blank">Documentation on how to write Math operators</a>
     <div style="padding-bottom:10px">Your answer:</div>
