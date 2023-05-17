@@ -59,7 +59,7 @@ $(document).ready(function() {
     });
     $("#modalButton").click(function() {
         hideModal();
-        //location.reload();
+        location.reload();
     });
 });
 

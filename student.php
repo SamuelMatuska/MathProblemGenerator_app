@@ -1,5 +1,6 @@
 <?php
-//connectiong to database
+require_once 'backend/connection.php';
+
 session_start();
 
 // Check if the user is logged in as an admin
@@ -21,6 +22,31 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
         exit();
     }
 }
+
+// Establish the database connection
+$connection = mysqli_connect($hostname, $username, $password, $dbname);
+
+// Check if the connection was successful
+if (!$connection) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Assuming your table is named "users" and you want to fetch the two integers for the current user
+$query = "SELECT right_answer, answered FROM users WHERE studentID = {$_SESSION['studentID']}";
+$result = mysqli_query($connection, $query);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $rightAnswer = $row['right_answer'];
+    $answered = $row['answered'];
+} else {
+    // Handle the case when user data is not found
+    $rightAnswer = 0;
+    $answered = 0;
+}
+
+// Remember to close the database connection
+mysqli_close($connection);
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +65,20 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
     <a href="backend/math_problems.php">Excersises</a>   
     <a href="backend/logout.php"> LOG OUT</a>
 </nav>
-<h1>Welcome, <?php echo htmlspecialchars($_SESSION['firstname'] . ' ' . $_SESSION['lastname']); ?>!</h1>
+<h1 style="font-size:60px">Welcome, <?php echo htmlspecialchars($_SESSION['firstname'] . ' ' . $_SESSION['lastname']); ?>!</h1>
+<?php
+if($rightAnswer == 0 && $answered == 0) {
+?>
+    <h3 style="font-size:30px">You havent done any excercises yet. To start head into the "Excersises" section please.</h3>
+<?php
+} else {
+?>
+    <h3 style="font-size:30px">You answered <?php echo $rightAnswer; ?>/<?php echo $answered; ?> questions correctly!</h3>
+<?php
+}
+?>
+
+
 <audio autoplay>
   <source src="welcome.mp3" type="audio/mpeg">
   Your browser does not support the audio element.

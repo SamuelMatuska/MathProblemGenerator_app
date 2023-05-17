@@ -1,8 +1,10 @@
 <?php
+
+
 require_once 'backend/connection.php';
 
 // Fetch data from the "users" table
-$stmt = $db->query("SELECT id, first_name, last_name, username, studentID FROM users");
+$stmt = $db->query("SELECT id, first_name, last_name, username, studentID, right_answer, answered FROM users");
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
@@ -28,6 +30,8 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <th>Last Name</th>
             <th>Username</th>
             <th>Student ID</th>
+            <th>Right answers</th>
+            <th>From total</th>
         </tr>
         <?php foreach ($users as $user) : 
             if ($user['studentID'] == 187) {
@@ -37,6 +41,8 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td><a href="selectedstudent.php?id=<?php echo $user['id']; ?>"><?php echo $user['last_name']; ?></a></td>
                 <td><a href="selectedstudent.php?id=<?php echo $user['id']; ?>"><?php echo $user['username']; ?></a></td>
                 <td><a href="selectedstudent.php?id=<?php echo $user['id']; ?>"><?php echo $user['studentID']; ?></a></td>
+                <td><a href="selectedstudent.php?id=<?php echo $user['id']; ?>"><?php echo $user['right_answer']; ?></a></td>
+                <td><a href="selectedstudent.php?id=<?php echo $user['id']; ?>"><?php echo $user['answered']; ?></a></td>
             </tr>
         <?php endforeach; ?>
     </table>

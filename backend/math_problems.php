@@ -55,13 +55,12 @@ session_Start();
     echo "<h3 id='problemstatement'>Problem Statement: </h3>" . $randomProblem["problem"];
     echo '<div id="solution" style="display: none;"><h3 align="center">Solution: </h3>' . stripslashes($randomProblem["solution"]) . '</div>';
     ?>
-    <p>Your answer:</p>
-    <a style="text-decoration: underline" href="https://inspera.atlassian.net/wiki/spaces/KB/pages/62062830/MathQuill+symbols">Documentation on how to write Math operators</a>
+    <a style="text-decoration: underline" href="https://inspera.atlassian.net/wiki/spaces/KB/pages/62062830/MathQuill+symbols" target="_blank">Documentation on how to write Math operators</a>
+    <div style="padding-bottom:10px">Your answer:</div>
     <div id="answer" class="mathquill-editable"></div>
     <input type="hidden" id="correct_answer" value="<?php echo htmlspecialchars($randomProblem['solution']); ?>">
     <button id="check_button">Submit Answer</button>
-    <a href="#" id="toggle_solution"><strong>Show Solution</strong></a>
-    <button id="reset_button"><a href="math_problems.php">Generate new question</a></button>
+    <!-- <button id="reset_button"><a href="math_problems.php">Generate new question</a></button> -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <h3 id="modalTitle"></h3>
