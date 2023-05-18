@@ -1,27 +1,28 @@
 <?php
+
 session_start();
 
 // Check if the user is logged in as an admin
 if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
-    if (basename($_SERVER['PHP_SELF']) !== 'selectedstudent.php') {
-        header("Location: selectedstudent.php");
+    if (basename($_SERVER['PHP_SELF']) !== 'selectedstudent_sk.php') {
+        header("Location: selectedstudent_sk.php");
         exit();
     }
 } elseif (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     // Check if the user is logged in as a basic user
-    if (basename($_SERVER['PHP_SELF']) !== 'student.php') {
-        header("Location: student.php"); 
+    if (basename($_SERVER['PHP_SELF']) !== 'student_sk.php') {
+        header("Location: student_sk.php"); 
         exit();
     }
 } else {
     // If the user is not logged in, redirect them to the index.php page
-    if (basename($_SERVER['PHP_SELF']) !== 'index.php') {
-        header("Location: index.php");
+    if (basename($_SERVER['PHP_SELF']) !== 'index_sk.php') {
+        header("Location: index_sk.php");
         exit(); 
     }
 }
 
-require_once 'backend/connection.php';
+require_once '../backend/connection.php';
 
 // Define a variable to store any success or error messages
 $message = '';
@@ -87,30 +88,30 @@ if (isset($_GET['id'])) {
         </head>
         <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#">Math Gen app</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin.php">Profile</a>
+                <div class="container">
+                    <a class="navbar-brand" href="#">Math Gen app</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin_sk.php">Profil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="studentslist_sk.php">Zoznam študentov</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="..//backend/logout.php">Odhlásiť sa</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../selectedstudent.php?id=<?php echo $user['id']; ?>">
+                                    <img src="../Flag_of_the_United_Kingdom.svg" alt="English Flag" style="height:30px; width:45px;">
+                                </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="studentslist.php">List of students</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/backend/logout.php">Log out</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="slovak/selectedstudent_sk.php?id=<?php echo $user['id']; ?>">
-                                <img src="Flag_of_Slovakia.png" alt="Slovak Flag" style="height:30px; width:45px;">
-                            </a>
-                        </li>
-                </ul>
+                    </ul>
+                </div>
             </div>
-        </div>
         </nav>
         <div class="container mt-5">
             <div class="row justify-content-center">

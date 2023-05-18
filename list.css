@@ -1,86 +1,143 @@
-
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
-
-* {
-	box-sizing: border-box;
-}
-
 body {
-	background: #ffffff;
-	display: flex;
-	flex-direction: column;
-	font-family: 'Montserrat', sans-serif;
-	height: 100vh; 
-	margin: -20px 0 50px;
+    background-color: #f5f5f5;
 }
 
 h1 {
+	font-size: 60px;
 	font-weight: bold;
-	margin: 0;
+	margin-top: 50px;
 }
 
-h2 {
-	margin-top: 5%;
-	text-align: center;
-	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+.table {
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.bold {
-    font-weight: bold;
+.table th, .table td {
+    padding: 15px;
+	color: #000;
+}
+
+.table a {
+    color: #000;
+    text-decoration: none; /* Removes the underline */
+}
+
+.table a:hover {
+    text-decoration: underline; /* Adds an underline when the link is hovered */
 }
 
 
-a {
-	color: #333;
-	font-size: 14px;
-	text-decoration: none;
-	margin: 15px 0;
+.switch {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin-top: 20px;
+	margin-right: 20px;
 }
 
-nav {
-    background-color: #333;
-    overflow: hidden;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 60px;
-    margin-top: 0;
-    background: linear-gradient(to right, #FF416C, rgb(255, 75, 43));
-    display: flex;
-    align-items: center; /* This line will align the items vertically */
-	padding-left: 30px;
+.navbar-nav {
+	font-size: 20px;
 }
-nav a {
-	float: left;
+
+.switch > span {
+	position: absolute;
+	margin-right: 30px;
+	pointer-events: none;
+	font-family: 'Helvetica', Arial, sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, .06);
+	width: 95.5%;
+	text-align: right;
+}
+  
+input.check-toggle-round-flat:checked ~ .off {
+	color: #F36F25;
+}
+  
+input.check-toggle-round-flat:checked ~ .on {
+	color: #fff;
+}
+  
+.switch > span.on {
+	left: 0;
+	padding-left: 2px;
+	color: #F36F25;
+}
+  
+.switch > span.off {
+	right: 0;
+	padding-right: 4px;
+	color: #fff;
+}
+  
+.check-toggle {
+	position: absolute;
+	margin-left: -9999px;
+	visibility: hidden;
+}
+
+.check-toggle + label {
 	display: block;
-	color: #000000;
-	text-align: center;
-	padding: 10px 16px;
-	text-decoration: none;
-	font-size: 15px;
+	position: relative;
+	cursor: pointer;
+	outline: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
-nav a:hover {
-	background-color: #000000;
-	color: rgb(255, 255, 255);
+  
+input.check-toggle-round-flat + label {
+	padding: 2px;
+	width: 100px;
+	height: 35px;
+	background-color: #F36F25;
+	-webkit-border-radius: 60px;
+	-moz-border-radius: 60px;
+	-ms-border-radius: 60px;
+	-o-border-radius: 60px;
+	border-radius: 60px;
+}
+input.check-toggle-round-flat + label:before, input.check-toggle-round-flat + label:after {
+	display: block;
+	position: absolute;
+	content: "";
+}
+  
+input.check-toggle-round-flat + label:before {
+	top: 2px;
+	left: 2px;
+	bottom: 2px;
+	right: 2px;
+	background-color: #F36F25;
+	-webkit--moz-border-radius: 60px;
+	-ms-border-radius: 60px;
+	-o-border-radius: 60px;
+	border-radius: 60px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 80px;
+input.check-toggle-round-flat + label:after {
+	top: 4px;
+	left: 4px;
+	bottom: 4px;
+	width: 48px;
+	background-color: #fff;
+	-webkit-border-radius: 52px;
+	-moz-border-radius: 52px;
+	-ms-border-radius: 52px;
+	-o-border-radius: 52px;
+	border-radius: 52px;
+	-webkit-transition: margin 0.2s;
+	-moz-transition: margin 0.2s;
+	-o-transition: margin 0.2s;
+	transition: margin 0.2s;
 }
-
-th, td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+  
+input.check-toggle-round-flat:checked + label {
 }
-
-th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-
-tr:hover {
-    background-color: #f5f5f5;
+  
+input.check-toggle-round-flat:checked + label:after {
+	margin-left: 44px;
 }
