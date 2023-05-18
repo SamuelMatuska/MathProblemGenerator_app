@@ -16,7 +16,7 @@ $problems = [];
 foreach ($paths as $path) {
     $folderName = $path; // Extract the name of the parent folder
     $fileContent = file_get_contents($basePath . $path);
-    preg_match_all($pattern, $fileContent, $matches);
+    preg_match_all($pattern, $fileContent, $matches); 
 
     for ($i = 0; $i < count($matches[0]); $i++) {
         $problem = $matches[2][$i];

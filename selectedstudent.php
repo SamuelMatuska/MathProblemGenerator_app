@@ -50,7 +50,7 @@ if (isset($_GET['id'])) {
     // Fetch the user data for the given ID
     $stmt = $db->prepare("SELECT * FROM users WHERE id = :id");
     $stmt->bindParam(":id", $userId, PDO::PARAM_INT);
-    $stmt->execute();
+    $stmt->execute(); 
 
     // Retrieve the user data
     $user = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -44,7 +44,7 @@ if (isset($_POST['register'])) {
         $stmt = $db->prepare($sql);
         $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
         $stmt->bindParam(":studentID", $param_studentID, PDO::PARAM_STR);
- 
+  
         $stmt->execute();
 
         if ($stmt->rowCount() == 1) {

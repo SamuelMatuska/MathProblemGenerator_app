@@ -71,6 +71,6 @@ error_reporting(E_ALL);
         </div>
     </div>-->
 
-    <script src="mathscript.js"></script>
+    <script src="mathscript.js"></script> 
 </body>
 </html>

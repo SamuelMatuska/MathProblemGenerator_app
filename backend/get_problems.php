@@ -11,7 +11,7 @@ foreach ($paths as $path) {
     preg_match_all($pattern, $file, $matches); 
 
     for ($i = 0; $i < count($matches[0]); $i++) {
-        $problem = $matches[2][$i];
+        $problem = $matches[2][$i]; 
 
         $problem = preg_replace($mathPattern, '$1', $problem);
 

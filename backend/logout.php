@@ -10,6 +10,6 @@ session_unset();
 session_destroy(); 
 
 // Presmerovanie na hlavnu stranku.
-header("Location: ../index.php");
+header("Location: ../index.php"); 
 exit;
 ?>

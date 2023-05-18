@@ -49,7 +49,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 mysqli_close($connection);
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">

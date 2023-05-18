@@ -11,7 +11,7 @@ if (isset($_POST['login'])) {
     $stmt->bindParam(":username", $_POST["username"], PDO::PARAM_STR);
 
     if ($stmt->execute()) {
-        if ($stmt->rowCount() == 1) {
+        if ($stmt->rowCount() == 1) { 
             // Uzivatel existuje, skontroluj heslo.
             $row = $stmt->fetch();
             $hashed_password = $row["password"];

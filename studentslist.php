@@ -21,7 +21,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
     }
 }
 
-require_once 'backend/connection.php';
+require_once 'backend/connection.php'; 
 
 // Fetch data from the "users" table
 $stmt = $db->query("SELECT id, first_name, last_name, username, studentID, right_answer, answered FROM users");

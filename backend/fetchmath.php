@@ -45,7 +45,7 @@ foreach ($paths as $path) {
 }
 
 // Insert the problem-solution pairs into the SQL table
-foreach ($problems as $problem) {
+foreach ($problems as $problem) { 
     $stmt = $db->prepare("INSERT INTO math_problems (problem_id, problem_statement, solution) VALUES (:problem_id, :problem_statement, :solution)");
     $stmt->bindParam(":problem_id", $problem['id']);
     $stmt->bindParam(":problem_statement", $problem['problem']);

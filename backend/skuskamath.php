@@ -2,8 +2,8 @@
 session_start();
 require_once 'connection.php';
 
-// Fetch the user's type from the database
-$stmt = $db->prepare("SELECT type FROM users WHERE username = :username");
+// Fetch the user's type and studentID from the database
+$stmt = $db->prepare("SELECT type, studentID FROM users WHERE username = :username");
 $stmt->bindParam(":username", $_SESSION['username'], PDO::PARAM_STR);
 $stmt->execute();
 
@@ -11,14 +11,15 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($user) {
     $userType = $user['type'];
+    $studentID = $user['studentID'];
 
     // Fetch a random math problem based on the user's type and folder_name
     $stmt = $db->prepare("SELECT mp.*
                           FROM math_problems mp
-                          LEFT JOIN user_math_problems ump ON mp.id = ump.problem_id AND ump.user_id = :user_id
+                          LEFT JOIN user_math_problems ump ON mp.id = ump.problem_id AND ump.user_id = :studentID
                           WHERE mp.folder_name = :folder_name AND (ump.answered_correctly IS NULL OR ump.answered_correctly = 0)
                           ORDER BY RAND() LIMIT 1");
-    $stmt->bindParam(":user_id", $user['id'], PDO::PARAM_INT);
+    $stmt->bindParam(":studentID", $studentID, PDO::PARAM_STR);
     $stmt->bindParam(":folder_name", $userType, PDO::PARAM_STR);
     $stmt->execute();
 
@@ -43,7 +44,7 @@ if ($user) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.4.0/math.min.js"></script>
     <link rel="stylesheet" href="../style_form.css">
     <script src="latexToJS/latex-to-js.js"></script>
-        <script src="mathscript.js"></script>
+    <script src="mathscript.js"></script>
     <script type='text/javascript'>
         var username = "<?php echo $_SESSION['username'] ?>";
     </script>
@@ -77,43 +78,72 @@ if ($user) {
             </div>
         </div>
 
-        
-
         <script>
-            // When the user submits the answer
-            document.getElementById('check_button').addEventListener('click', function() {
-                var userAnswer = document.getElementById('answer').textContent.trim();
-                var correctAnswer = document.getElementById('correct_answer').value.trim();
-                
-                // Check if the user's answer is correct
-                if (userAnswer === correctAnswer) {
-                    document.getElementById('modalTitle').textContent = 'Correct!';
-                    document.getElementById('modalText').textContent = 'Congratulations, your answer is correct!';
-                    document.getElementById('myModal').style.display = 'block';
+  $(document).ready(function() {
+    var MQ = MathQuill.getInterface(2); // for backcompat
+    var answerMathField = MQ.MathField(document.getElementById('answer'));
 
-                    // Update the status in the user_math_problems table
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'update_user_math_problems.php', true);
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            console.log('Status updated successfully.');
-                        }
-                    };
-                    xhr.send('user_id=<?php echo $user['id']; ?>&problem_id=<?php echo $problemId; ?>&answered_correctly=true');
-                } else {
-                    document.getElementById('modalTitle').textContent = 'Incorrect!';
-                    document.getElementById('modalText').textContent = 'Sorry, your answer is incorrect.';
-                    document.getElementById('myModal').style.display = 'block';
-                }
-            });
+    function showModal(title, text) {
+      $("#modalTitle").text(title);
+      $("#modalText").text(text);
+      $("#myModal").show();
+    }
 
-            // When the user clicks the "Generate new math problem" button
-            document.getElementById('modalButton').addEventListener('click', function() {
-                document.getElementById('myModal').style.display = 'none';
-                window.location.reload();
-            });
-        </script>
+    function hideModal() {
+      $("#myModal").hide();
+    }
+
+    $('#check_button').click(function() {
+      var studentAnswer = answerMathField.latex();
+      var correctAnswer = document.getElementById('correct_answer').value;
+      var problemId = <?php echo $problemId; ?>;
+
+      studentAnswer = studentAnswer.replace(/\\frac/g, '').replace(/\\dfrac/g, '');
+      correctAnswer = correctAnswer.replace(/\\frac/g, '').replace(/\\dfrac/g, '');
+      correctAnswer = correctAnswer.replace(/\s/g, '');
+      studentAnswer = studentAnswer.replace(/\\right\]/g, '');
+      studentAnswer = studentAnswer.replace(/\\left\[/g, '');
+
+      studentAnswer = studentAnswer.replace(/([0-9\}])([a-zA-Z])/g, '$1*$2');
+      correctAnswer = correctAnswer.replace(/([0-9\}])([a-zA-Z])/g, '$1*$2');
+
+      try {
+        if (studentAnswer == correctAnswer) {
+          showModal("Correct Answer!", "The answer is correct.");
+          updateScores(true);
+        } else {
+          showModal("Incorrect Answer!", "The answer is incorrect.");
+          updateScores(false);
+        }
+      } catch (error) {
+        showModal("Error", "There was an error processing your answer. Make sure it is a valid mathematical expression.");
+      }
+
+      function updateScores(isCorrect) {
+        $.ajax({
+          url: 'update_scores.php',
+          type: 'POST',
+          data: {
+            username: username,
+            problemId: problemId,
+            isCorrect: isCorrect ? 1 : 0
+          },
+          success: function(response) {
+            console.log(response);
+          },
+          error: function(xhr, status, error) {
+            console.log(error);
+          }
+        });
+      }
+    });
+
+    $('#modalButton').click(function() {
+      hideModal();
+      location.reload();
+    });
+  });
+</script>
 
     <?php else : ?>
         <p>No math problems found.</p>
