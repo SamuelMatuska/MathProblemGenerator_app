@@ -27,8 +27,8 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Math App</title>
-    <link rel="stylesheet" href="style_form.css">
-    <script src="backend/script.js"></script>
+    <link rel="stylesheet" href="../style_form.css">
+    <script src="../backend/script.js"></script>
 </head>
 <body>
     <div class="container" id="container">

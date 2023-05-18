@@ -23,65 +23,65 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
     }
 }
 
-// Establish the database connection
-$connection = mysqli_connect($hostname, $username, $password, $dbname);
-
-// Check if the connection was successful
-if (!$connection) {
-    die("Connection failed: " . mysqli_connect_error());
-}
- 
-// Assuming your table is named "users" and you want to fetch the two integers for the current user
-$query = "SELECT right_answer, answered FROM users WHERE studentID = {$_SESSION['studentID']}";
-$result = mysqli_query($connection, $query);
-
-if ($result && mysqli_num_rows($result) > 0) {
-    $row = mysqli_fetch_assoc($result);
-    $rightAnswer = $row['right_answer'];
-    $answered = $row['answered'];
-} else {
-    // Handle the case when user data is not found
-    $rightAnswer = 0;
-    $answered = 0;
-}
-
-// Remember to close the database connection
-mysqli_close($connection);
+require_once 'backend/fetch_user_data.php';
 ?>
 
 <!DOCTYPE html> 
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Student page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="style_form.css">
-</head>
-<body>
-<nav>
-    <a href="student.php">Student home page</a> 
-    <a href="backend/math_problems.php">Excersises</a>   
-    <a href="backend/logout.php"> LOG OUT</a>
-</nav>
-<h1 style="font-size:60px">Welcome, <?php echo htmlspecialchars($_SESSION['firstname'] . ' ' . $_SESSION['lastname']); ?>!</h1>
-<?php
-if($rightAnswer == 0 && $answered == 0) {
-?>
-    <h3 style="font-size:30px">You havent done any excercises yet. To start, head into the "Excersises" section please.</h3>
-<?php
-} else {
-?>
-    <h3 style="font-size:30px">You answered <?php echo $rightAnswer; ?>/<?php echo $answered; ?> questions correctly!</h3>
-<?php
-}
-?>
-
-
-<audio autoplay>
-  <source src="welcome.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Student page</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">Math Gen app</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="student.php">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="readme_student.php">Tutorial</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="backend/math_problems.php">Excercises</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="backend/logout.php">Log out</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="slovak/student_sk.php">
+                                <img src="Flag_of_Slovakia.png" alt="Slovak Flag" style="height:30px; width:45px;">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <h1 style="font-size:60px">Welcome, <?php echo htmlspecialchars($_SESSION['firstname'] . ' ' . $_SESSION['lastname']); ?>!</h1>
+        <?php
+        if($rightAnswer == 0 && $answered == 0) {
+        ?>
+            <h3 style="font-size:30px">You havent done any excercises yet. To start, head into the "Excercises" section please.</h3>
+        <?php
+        } else {
+        ?>
+            <h3 style="font-size:30px">You answered <?php echo $rightAnswer; ?>/<?php echo $answered; ?> questions correctly!</h3>
+        <?php
+        }
+        ?>
+        <audio autoplay>
+        <source src="welcome.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+        </audio>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    </body>
 </html>

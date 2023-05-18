@@ -102,7 +102,7 @@ if (isset($_GET['id'])) {
                                 <a class="nav-link active" href="studentslist_sk.php">Zoznam študentov</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="..//backend/logout.php">Odhlásiť sa</a>
+                                <a class="nav-link" href="../backend/logout.php">Odhlásiť sa</a>
                             </li>
                             <li class="nav-item">
                                 <a href="../selectedstudent.php?id=<?php echo $user['id']; ?>">

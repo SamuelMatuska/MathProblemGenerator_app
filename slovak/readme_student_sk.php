@@ -1,6 +1,4 @@
 <?php
-require_once '../backend/connection.php';
-
 session_start();
 
 // Check if the user is logged in as an admin
@@ -11,32 +9,33 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
     }
 } elseif (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     // Check if the user is logged in as a basic user
-    if (basename($_SERVER['PHP_SELF']) !== 'student_sk.php') {
-        header("Location: student_sk.php");
+    if (basename($_SERVER['PHP_SELF']) !== 'readme_student_sk.php') {
+        header("Location: readme_student_sk.php"); 
         exit();
     }
 } else {
     // If the user is not logged in, redirect them to the index.php page
     if (basename($_SERVER['PHP_SELF']) !== 'index_sk.php') {
         header("Location: index_sk.php");
-        exit();
+        exit(); 
     }
 }
 
-require_once '../backend/fetch_user_data.php';
 ?>
-
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="sk">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Študentský profil</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tutorial pre študenta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <link rel="stylesheet" href="../list.css"> 
+    <script src="../backend/pdf.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="#">Math Gen app</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,10 +44,10 @@ require_once '../backend/fetch_user_data.php';
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="student_sk.php">Profil</a>
+                            <a class="nav-link" href="student_sk.php">Profil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="readme_student_sk.php">Návod</a>
+                            <a class="nav-link active" href="readme_student_sk.php">Návod</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../backend/math_problems_sk.php">Príklady</a>
@@ -57,31 +56,20 @@ require_once '../backend/fetch_user_data.php';
                             <a class="nav-link" href="../backend/logout.php">Odhlásiť sa</a>
                         </li>
                         <li class="nav-item">
-                            <a href="../student.php">
+                            <a href="../readme_student.php">
                                 <img src="../Flag_of_the_United_Kingdom.svg" alt="English Flag" style="height:30px; width:45px;">
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
-        </nav>
-        <h1 style="font-size:60px">Vitaj, <?php echo htmlspecialchars($_SESSION['firstname'] . ' ' . $_SESSION['lastname']); ?>!</h1>
-        <?php
-        if($rightAnswer == 0 && $answered == 0) {
-        ?>
-            <h3 style="font-size:30px">You havent done any excercises yet. To start, head into the "Excercises" section please.</h3>
-        <?php
-        } else {
-        ?>
-            <h3 style="font-size:30px">You answered <?php echo $rightAnswer; ?>/<?php echo $answered; ?> questions correctly!</h3>
-        <?php
-        }
-        ?>
-        <audio autoplay>
-        <source src="welcome.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-        </audio>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    </body>
+    </nav>
+    <div class="container text-center" id="readme">
+        <h1>JAKOOO</h1>
+        <p>Tvoj tatko records!</p>
+    </div>
+    <button id="generatePDF" class="btn btn-primary">Generovať PDF s inštrukciami</button>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
 </html>

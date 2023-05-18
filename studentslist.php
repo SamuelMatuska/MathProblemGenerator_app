@@ -37,6 +37,10 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="list.css?v=<?php echo time(); ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" >
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" ></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js" ></script>
+    <script src="backend/csv.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -51,10 +55,13 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <a class="nav-link" href="admin.php">Profile</a>
                     </li>
                     <li class="nav-item">
+                            <a class="nav-link" href="readme_admin.php">Tutorial</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link active" href="studentslist.php">List of students</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/backend/logout.php">Log out</a>
+                        <a class="nav-link" href="backend/logout.php">Log out</a>
                     </li>
                     <li class="nav-item">
                             <a href="slovak/studentslist_sk.php">
@@ -66,7 +73,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </nav>
     <div class="container mt-5">
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover" id="students">
             <thead>
                 <tr class="text-center">
                     <th>First Name</th>
@@ -93,6 +100,14 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </tbody>
         </table>
     </div>
+    <button id="export" class="btn btn-primary">Export as CSV</button>
+    <script>
+        jQuery(document).ready(function($){
+            $('#students').DataTable({
+                
+            });
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>

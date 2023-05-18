@@ -98,10 +98,13 @@ if (isset($_GET['id'])) {
                             <a class="nav-link" href="admin.php">Profile</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="readme_admin.php">Tutorial</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link active" href="studentslist.php">List of students</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/backend/logout.php">Log out</a>
+                            <a class="nav-link" href="backend/logout.php">Log out</a>
                         </li>
                         <li class="nav-item">
                             <a href="slovak/selectedstudent_sk.php?id=<?php echo $user['id']; ?>">
