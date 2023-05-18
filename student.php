@@ -30,7 +30,7 @@ $connection = mysqli_connect($hostname, $username, $password, $dbname);
 if (!$connection) {
     die("Connection failed: " . mysqli_connect_error());
 }
-
+ 
 // Assuming your table is named "users" and you want to fetch the two integers for the current user
 $query = "SELECT right_answer, answered FROM users WHERE studentID = {$_SESSION['studentID']}";
 $result = mysqli_query($connection, $query);

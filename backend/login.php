@@ -6,7 +6,7 @@ require_once 'connection.php';
 if (isset($_POST['login'])) {
     $sql = "SELECT first_name, last_name, username, studentID, password FROM users WHERE username = :username";
 
-    $stmt = $db->prepare($sql);
+    $stmt = $db->prepare($sql); 
 
     $stmt->bindParam(":username", $_POST["username"], PDO::PARAM_STR);
 

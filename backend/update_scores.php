@@ -14,7 +14,7 @@ if ($isCorrect) {
 }
 
 // Prepare and execute the query
-$stmt = $db->prepare($query);
+$stmt = $db->prepare($query); 
 $stmt->execute([$username]);
 
 if ($stmt->rowCount() > 0) {

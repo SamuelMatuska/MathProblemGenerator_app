@@ -33,6 +33,11 @@ if (isset($_GET['id'])) {
     // Retrieve the user data
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    // Fetch the folder names from the math_problems table
+    $stmtFolders = $db->prepare("SELECT DISTINCT folder_name FROM math_problems");
+    $stmtFolders->execute();
+    $folders = $stmtFolders->fetchAll(PDO::FETCH_COLUMN);
+
     if ($user) {
         ?>
         <!DOCTYPE html>
@@ -51,7 +56,7 @@ if (isset($_GET['id'])) {
             <a href="studentslist.php">List of your Students</a> 
             <a href="backend/logout.php">LOG OUT</a>
         </nav>
-            <h1>Edit User</h1>
+            <h1>Edit User</h1> 
             <?php if (!empty($message)) : ?>
                 <p><?php echo $message; ?></p>
             <?php endif; ?>
@@ -61,7 +66,11 @@ if (isset($_GET['id'])) {
                 <label for="last_name">Last Name:</label>
                 <span><?php echo $user['last_name']; ?></span><br>
                 <label for="type">Type:</label>
-                <input type="text" name="type" value="<?php echo $user['type']; ?>"><br>
+                <select name="type">
+                    <?php foreach ($folders as $folder) : ?>
+                        <option value="<?php echo $folder; ?>" <?php if ($user['type'] === $folder) echo 'selected'; ?>><?php echo $folder; ?></option>
+                    <?php endforeach; ?>
+                </select><br>
                 <button type="submit">Update</button>
             </form>
         </body>

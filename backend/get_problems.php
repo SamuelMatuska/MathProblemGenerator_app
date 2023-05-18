@@ -8,7 +8,7 @@ $problems = [];
 foreach ($paths as $path) {
     $file = file_get_contents($path);
 
-    preg_match_all($pattern, $file, $matches);
+    preg_match_all($pattern, $file, $matches); 
 
     for ($i = 0; $i < count($matches[0]); $i++) {
         $problem = $matches[2][$i];

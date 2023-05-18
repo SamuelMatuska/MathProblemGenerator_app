@@ -16,7 +16,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
 } else {
     // If the user is not logged in, redirect them to the index.php page
     if (basename($_SERVER['PHP_SELF']) !== 'index.php') {
-        header("Location: index.php");
+        header("Location: index.php"); 
         exit();
     }
 }

@@ -7,7 +7,7 @@ $_SESSION = array();
 session_unset();
 
 // Vymazanie session.
-session_destroy();
+session_destroy(); 
 
 // Presmerovanie na hlavnu stranku.
 header("Location: ../index.php");

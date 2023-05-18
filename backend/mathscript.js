@@ -9,8 +9,8 @@ $(document).ready(function() {
     }
 
     function hideModal() {
-        $("#myModal").hide();
-    }
+        $("#myModal").hide(); 
+    } 
 
     $('#check_button').click(function() {
         var studentAnswer = answerMathField.latex();

@@ -5,7 +5,7 @@ require_once 'connection.php';
 $pattern = '/\\\\section\*\{(.*?)\}.*?\\\\begin\{task\}(.*?)\\\\end\{task\}.*?\\\\begin\{solution\}(.*?)\\\\end\{solution\}/s';
 
 // Define the pattern to match images
-$imagePattern = '/\\\\includegraphics\{(.*?)\}/s';
+$imagePattern = '/\\\\includegraphics\{(.*?)\}/s'; 
 
 // Define the pattern to match LaTeX math expressions
 $mathPattern = '/\$(.*?)\$/s';

@@ -53,7 +53,7 @@ error_reporting(E_ALL);
             $problems[] = ["id" => $matches[1][$i], "problem" => $problem, "solution" => $solution];
         }
     }
-    $randomProblem = $problems[array_rand($problems)];
+    $randomProblem = $problems[array_rand($problems)]; 
     echo "<h2 id='problemid'>Problem ID: " . $randomProblem["id"] . "</h2>";
     echo "<h3 id='problemstatement'>Problem Statement: </h3>" . $randomProblem["problem"];
     ?>
@@ -62,16 +62,15 @@ error_reporting(E_ALL);
     <div id="answer" class="mathquill-editable"></div>
     <input type="hidden" id="correct_answer" value="<?php echo htmlspecialchars($randomProblem['solution']); ?>">
     <button id="check_button">Submit Answer</button>
-    <!-- <button id="reset_button"><a href="math_problems.php">Generate new question</a></button> -->
+    <!-- <button id="reset_button"><a href="math_problems.php">Generate new question</a></button> 
     <div id="myModal" class="modal">
         <div class="modal-content">
             <h3 id="modalTitle"></h3>
             <p id="modalText"></p>
             <button id="modalButton">Generate new math problem</button>
         </div>
-    </div>
+    </div>-->
 
-    <script src="latexToJS/latex-to-js.js"></script>
     <script src="mathscript.js"></script>
 </body>
 </html>
