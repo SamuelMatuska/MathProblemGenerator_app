@@ -1,34 +1,36 @@
 <?php
 session_start();
-require_once 'backend/connection.php'; 
+require_once 'backend/connection.php';
 
 // Fetch the user's type and studentID from the database
-$stmt = $db->prepare("SELECT type, studentID FROM users WHERE username = :username");
+$stmt = $db->prepare("SELECT type, id FROM users WHERE username = :username");
 $stmt->bindParam(":username", $_SESSION['username'], PDO::PARAM_STR);
 $stmt->execute();
 
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+$problemId = null;
 if ($user) {
-    $userType = $user['type'];
-    $studentID = $user['studentID'];
+  $userType = $user['type'];
+  $studentID = $user['id'];
 
-    // Fetch a random math problem based on the user's type and folder_name
-    $stmt = $db->prepare("SELECT mp.*
-                          FROM math_problems mp
-                          LEFT JOIN user_math_problems ump ON mp.id = ump.problem_id AND ump.user_id = :studentID
-                          WHERE mp.folder_name = :folder_name AND (ump.answered_correctly IS NULL OR ump.answered_correctly = 0)
-                          ORDER BY RAND() LIMIT 1");
-    $stmt->bindParam(":studentID", $studentID, PDO::PARAM_STR);
-    $stmt->bindParam(":folder_name", $userType, PDO::PARAM_STR);
-    $stmt->execute();
+  // Fetch a random math problem based on the user's type and folder_name
+  $stmt = $db->prepare("SELECT mp.*, mp.problem_id AS problem_id
+                        FROM math_problems mp
+                        LEFT JOIN user_math_problems ump ON mp.problem_id = ump.problem_id AND ump.user_id = :id AND ump.answered_correctly = 1
+                        WHERE mp.folder_name = :folder_name AND ump.problem_id IS NULL
+                        ORDER BY RAND() LIMIT 1");
+  $stmt->bindParam(":id", $studentID, PDO::PARAM_STR);
+  $stmt->bindParam(":folder_name", $userType, PDO::PARAM_STR);
+  $stmt->execute();
 
-    $mathProblem = $stmt->fetch(PDO::FETCH_ASSOC);
+  $mathProblem = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($mathProblem) {
-        $problemId = $mathProblem['id'];
-    }
-} 
+  if ($mathProblem) {
+      $problemId = $mathProblem['problem_id'];
+      echo '<script>var problemId = "' . $problemId . '";</script>';
+  }
+}
 
 ?>
 
@@ -45,6 +47,7 @@ if ($user) {
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
      <link rel="stylesheet" href="final.css">
     <script src="latexToJS/latex-to-js.js"></script>
+    <script src="backend/mathscript.js"></script>
     <script type='text/javascript'>
         var username = "<?php echo $_SESSION['username'] ?>";
     </script>
@@ -59,10 +62,10 @@ if ($user) {
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="slovak/student_sk.php">Profil</a>
+                            <a class="nav-link" href="slovak/student_sk.php">Profil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="slovak/readme_student_sk.php">Návod</a>
+                            <a class="nav-link active" href="slovak/readme_student_sk.php">Návod</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="math_problems_sk.php">Príklady</a>
@@ -72,23 +75,23 @@ if ($user) {
                         </li>
                         <li class="nav-item">
                             <a href="math_problems.php">
-                            <img src="Flag_of_the_United_Kingdom.svg" alt="English Flag" style="height:30px; width:45px;">
+                                <img src="Flag_of_the_United_Kingdom.svg" alt="English Flag" style="height:30px; width:45px;">
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
-        </nav>
+    </nav>
 
     <?php if (!empty($mathProblem)) : ?>
         
         <div id="container">
-            <h2 id='problemid'>Problém ID: <?php echo $mathProblem['id']; ?></h2>
-            <h3 id="problemstatement">Problém:</h4>
+            <h2 id='problemid'>ID príkladu: <?php echo $problemId; ?></h2>
+            <h3 id="problemstatement">Zadanie:</h4>
             <p id="text"><?php echo $mathProblem['problem']; ?></p>
         
 
-        <a style="text-decoration: underline; color:black" href="https://inspera.atlassian.net/wiki/spaces/KB/pages/62062830/MathQuill+symbols" target="_blank">Dokumentácia písania matematických operácií</a>
+        <a style="text-decoration: underline; color: black" href="https://inspera.atlassian.net/wiki/spaces/KB/pages/62062830/MathQuill+symbols" target="_blank">Documentation on how to write Math operators</a>
         <div style="padding-bottom:10px">Tvoja odpoveď:</div>
         <div id="answer" class="mathquill-editable"></div>
         <input type="hidden" id="correct_answer" value="<?php echo htmlspecialchars($mathProblem['solution']); ?>">
@@ -98,10 +101,10 @@ if ($user) {
             <div class="modal-content">
                 <h3 id="modalTitle"></h3>
                 <p id="modalText"></p>
-                <button id="modalButton">Ďaľšia otázka</button>
+                <button id="modalButton">Ďalší príklad</button>
             </div>
         </div>
-
+        
         <script>
   $(document).ready(function() {
     var MQ = MathQuill.getInterface(2); // for backcompat
@@ -120,7 +123,6 @@ if ($user) {
     $('#check_button').click(function() {
       var studentAnswer = answerMathField.latex();
       var correctAnswer = document.getElementById('correct_answer').value;
-      var problemId = <?php echo $problemId; ?>;
 
       studentAnswer = studentAnswer.replace(/\\frac/g, '').replace(/\\dfrac/g, '');
       correctAnswer = correctAnswer.replace(/\\frac/g, '').replace(/\\dfrac/g, '');
@@ -133,10 +135,10 @@ if ($user) {
 
       try {
         if (studentAnswer == correctAnswer) {
-          showModal("Correct Answer!", "The answer is correct.");
+          showModal("Správne riešenie!", "Gratulujem!");
           updateScores(true);
         } else {
-          showModal("Incorrect Answer!", "The answer is incorrect.");
+          showModal("Nesprávne riešenie!", "Nevzdávaj sa!");
           updateScores(false);
         }
       } catch (error) {
@@ -170,10 +172,9 @@ if ($user) {
 </script>
 
     <?php else : ?>
-        <p>No math problems found.</p>
+        <div id="container"><h1>Nemáš žiadne aktívne príklady na riešenie.</h1></div>
     <?php endif; ?>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-
 </body>
 </html>

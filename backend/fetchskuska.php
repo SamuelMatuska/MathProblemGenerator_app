@@ -16,9 +16,10 @@ $problems = [];
 foreach ($paths as $path) {
     $folderName = $path; // Extract the name of the parent folder
     $fileContent = file_get_contents($basePath . $path);
-    preg_match_all($pattern, $fileContent, $matches); 
+    preg_match_all($pattern, $fileContent, $matches);
 
     for ($i = 0; $i < count($matches[0]); $i++) {
+        $problemId = $matches[1][$i]; // Extract problem_id from \section*{BB9B40}
         $problem = $matches[2][$i];
         $problem = preg_replace($mathPattern, '\( $1 \)', $problem);
 
@@ -34,6 +35,7 @@ foreach ($paths as $path) {
 
         $problems[] = [
             'folder_name' => $folderName,
+            'problem_id' => $problemId, // Add problem_id to the $problems array
             'problem' => $problem,
             'solution' => $solution,
             'file_content' => $fileContent
@@ -42,13 +44,27 @@ foreach ($paths as $path) {
 }
 
 // Prepare and execute the SQL query to insert math problems into the table
-$stmt = $db->prepare("INSERT INTO math_problems (folder_name, problem, solution) VALUES (:folder_name, :problem, :solution)");
+$checkStmt = $db->prepare("SELECT COUNT(*) FROM math_problems");
+$checkStmt->execute();
+$rowCount = $checkStmt->fetchColumn();
 
-foreach ($problems as $problem) {
-    $stmt->bindParam(":folder_name", $problem['folder_name'], PDO::PARAM_STR);
-    $stmt->bindParam(":problem", $problem['problem'], PDO::PARAM_STR);
-    $stmt->bindParam(":solution", $problem['solution'], PDO::PARAM_STR);
-    $stmt->execute();
+if ($rowCount == 0) {
+    // The math_problems table is empty, proceed with the INSERT statements
+
+    $stmt = $db->prepare("INSERT INTO math_problems (folder_name, problem_id, problem, solution) VALUES (:folder_name, :problem_id, :problem, :solution)");
+    $stmt->bindParam(":folder_name", $folder_name, PDO::PARAM_STR);
+    $stmt->bindParam(":problem_id", $problem_id, PDO::PARAM_STR);
+    $stmt->bindParam(":problem", $problem_text, PDO::PARAM_STR);
+    $stmt->bindParam(":solution", $solution_text, PDO::PARAM_STR);
+
+    foreach ($problems as $problem) {
+        $folder_name = $problem['folder_name'];
+        $problem_id = $problem['problem_id'];
+        $problem_text = $problem['problem'];
+        $solution_text = $problem['solution'];
+
+        $stmt->execute();
+    }
 }
 
 // Close the database connection

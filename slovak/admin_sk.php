@@ -62,10 +62,26 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
                 </div>
             </div>
     </nav>
-    <div id="container">
-        <h1>Vitaj na Admin paneli!</h1>
-        <button href="../backend/fetchskuska.php" style="margin-top:5px" class="round-btn btn-block">Nahraj príklady!</button>
+    <div class="container2">
+        <h1>Vitaj na admin paneli!</h1>
+        <button style="margin-top:5px" class="round-btn btn-block" onclick="uploadExercises()">Nahraj príklady</button>
     </div>
+    <script>
+    function uploadExercises() {
+        $.ajax({
+            url: '../backend/fetchskuska.php',
+            type: 'POST',
+            success: function(response) {
+                // Handle the success response if needed
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                // Handle the error response if needed
+                console.log(error);
+            }
+        });
+    }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>

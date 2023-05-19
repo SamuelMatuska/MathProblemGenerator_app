@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 require_once 'connection.php';
 
 // Update Scores in user_math_problems Table
@@ -6,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'], $_POST['i
     $username = $_POST['username'];
     $isCorrect = $_POST['isCorrect'];
     $problemId = $_POST['problemId'];
-
     // Fetch the user's ID based on the username
     $stmt = $db->prepare("SELECT id FROM users WHERE username = :username");
     $stmt->bindParam(":username", $username, PDO::PARAM_STR);
@@ -16,15 +18,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'], $_POST['i
 
     if ($user) {
         $userId = $user['id'];
-
-        // Update the user_math_problems table
-        $stmt = $db->prepare("INSERT INTO user_math_problems (user_id, problem_id, answered_correctly) VALUES (:userId, :problemId, :isCorrect)
-                             ON DUPLICATE KEY UPDATE answered_correctly = VALUES(answered_correctly)");
+    
+        // Check if a row already exists with the user_id and problem_id
+        $stmt = $db->prepare("SELECT COUNT(*) FROM user_math_problems WHERE user_id = :userId AND problem_id = :problemId");
         $stmt->bindParam(":userId", $userId, PDO::PARAM_INT);
-        $stmt->bindParam(":problemId", $problemId, PDO::PARAM_INT);
-        $stmt->bindParam(":isCorrect", $isCorrect, PDO::PARAM_INT);
+        $stmt->bindParam(":problemId", $problemId, PDO::PARAM_STR, 250);
         $stmt->execute();
-
+        $rowExists = ($stmt->fetchColumn() > 0);
+    
+        if ($rowExists) {
+            // Update the existing row
+            $stmt = $db->prepare("UPDATE user_math_problems SET answered_correctly = :isCorrect WHERE user_id = :userId AND problem_id = :problemId");
+            $stmt->bindParam(":isCorrect", $isCorrect, PDO::PARAM_INT);
+        } else {
+            // Insert a new row
+            $stmt = $db->prepare("INSERT INTO user_math_problems (user_id, problem_id, answered_correctly) VALUES (:userId, :problemId, :isCorrect)");
+            $stmt->bindParam(":isCorrect", $isCorrect, PDO::PARAM_INT);
+        }
+    
+        $stmt->bindParam(":userId", $userId, PDO::PARAM_INT);
+        $stmt->bindParam(":problemId", $problemId, PDO::PARAM_STR, 250);
+        $stmt->execute();
+    
         if ($stmt->rowCount() > 0) {
             $response = array('status' => 'success', 'message' => 'Score updated successfully');
             echo json_encode($response);
