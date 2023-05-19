@@ -90,12 +90,12 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     if ($user['studentID'] == 187) {
                         continue;}?>
                     <tr class="text-center">
-                        <td><a href="selectedstudent.php?id=<?php echo $user['id']; ?>"><?php echo $user['first_name']; ?></a></td>
-                        <td><?php echo $user['last_name']; ?></a></td>
-                        <td><?php echo $user['username']; ?></a></td>
-                        <td><?php echo $user['studentID']; ?></a></td>
-                        <td><?php echo $user['right_answer']; ?></a></td>
-                        <td><?php echo $user['answered']; ?></a></td>
+                        <td><a href="selectedstudent_sk.php?id=<?php echo $user['id']; ?>"  style="color:black; text-decoration:none"><?php echo $user['first_name']; ?></a></td>
+                        <td><a href="selectedstudent_sk.php?id=<?php echo $user['id']; ?>"  style="color:black; text-decoration:none"><?php echo $user['last_name']; ?></a></td>
+                        <td><a href="selectedstudent_sk.php?id=<?php echo $user['id']; ?>"  style="color:black; text-decoration:none"><?php echo $user['username']; ?></a></td>
+                        <td><a href="selectedstudent_sk.php?id=<?php echo $user['id']; ?>"  style="color:black; text-decoration:none"><?php echo $user['studentID']; ?></a></td>
+                        <td><a href="selectedstudent_sk.php?id=<?php echo $user['id']; ?>"  style="color:black; text-decoration:none"><?php echo $user['right_answer']; ?></a></td>
+                        <td><a href="selectedstudent_sk.php?id=<?php echo $user['id']; ?>"  style="color:black; text-decoration:none"><?php echo $user['answered']; ?></a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

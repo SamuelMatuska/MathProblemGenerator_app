@@ -72,6 +72,7 @@ if (isset($_GET['id'])) {
             <title>Edit Student</title>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <link rel="stylesheet" href="../final.css">
             <style>
                 .round-btn {
                     border-radius: 20px;
@@ -128,10 +129,10 @@ if (isset($_GET['id'])) {
                         <label for="type">Typ:</label>
                         <select name="type">
                             <?php foreach ($folders as $folder) : ?>
-                            <option value="<?php echo $folder; ?>" <?php if ($user['type'] === $folder) echo 'selected'; ?>><?php echo $folder; ?></option>
+                            <option style="padding-bot:10px" value="<?php echo $folder; ?>" <?php if ($user['type'] === $folder) echo 'selected'; ?>><?php echo $folder; ?></option>
                             <?php endforeach; ?>
                         </select><br>
-                        <button type="submit" class="round-btn btn-block">Vykonaj</button>
+                        <button type="submit" style="margin-top:5px" class="round-btn btn-block">Vykonaj</button>
                     </form>
                 </div>
             </div>

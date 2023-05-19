@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'connection.php';
+require_once 'backend/connection.php'; 
 
 // Fetch the user's type and studentID from the database
 $stmt = $db->prepare("SELECT type, studentID FROM users WHERE username = :username");
@@ -43,10 +43,8 @@ if ($user) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.4.0/math.min.js"></script>   
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-     <link rel="stylesheet" href="../final.css">
-    <link rel="stylesheet" href="../final.css">
+     <link rel="stylesheet" href="final.css">
     <script src="latexToJS/latex-to-js.js"></script>
-    <script src="mathscript.js"></script>
     <script type='text/javascript'>
         var username = "<?php echo $_SESSION['username'] ?>";
     </script>
@@ -61,47 +59,46 @@ if ($user) {
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="student_sk.php">Profil</a>
+                            <a class="nav-link active" href="slovak/student_sk.php">Profil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="readme_student_sk.php">Návod</a>
+                            <a class="nav-link" href="slovak/readme_student_sk.php">Návod</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="math_problems_sk.php">Príklady</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../backend/logout.php">Odhlásiť sa</a>
+                            <a class="nav-link" href="backend/logout.php">Odhlásiť sa</a>
                         </li>
                         <li class="nav-item">
-                            <a href="../readme_student.php">
-                                <img src="../Flag_of_the_United_Kingdom.svg" alt="English Flag" style="height:30px; width:45px;">
+                            <a href="math_problems.php">
+                            <img src="Flag_of_the_United_Kingdom.svg" alt="English Flag" style="height:30px; width:45px;">
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
-    </nav>
+        </nav>
 
     <?php if (!empty($mathProblem)) : ?>
         
         <div id="container">
-            <h2 id='problemid'>Problem ID: <?php echo $mathProblem['id']; ?></h2>
-            <h3 id="problemstatement">Problem Statement:</h4>
+            <h2 id='problemid'>Problém ID: <?php echo $mathProblem['id']; ?></h2>
+            <h3 id="problemstatement">Problém:</h4>
             <p id="text"><?php echo $mathProblem['problem']; ?></p>
         
 
-        <a style="text-decoration: underline" href="https://inspera.atlassian.net/wiki/spaces/KB/pages/62062830/MathQuill+symbols" target="_blank">Documentation on how to write Math operators</a>
-        <div style="padding-bottom:10px">Your answer:</div>
+        <a style="text-decoration: underline; color:black" href="https://inspera.atlassian.net/wiki/spaces/KB/pages/62062830/MathQuill+symbols" target="_blank">Dokumentácia písania matematických operácií</a>
+        <div style="padding-bottom:10px">Tvoja odpoveď:</div>
         <div id="answer" class="mathquill-editable"></div>
         <input type="hidden" id="correct_answer" value="<?php echo htmlspecialchars($mathProblem['solution']); ?>">
-        <button id="check_button">Submit Answer</button>
+        <button id="check_button">Skontroluj</button>
       </div>
-        <!-- <button id="reset_button"><a href="math_problems.php">Generate new question</a></button> -->
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <h3 id="modalTitle"></h3>
                 <p id="modalText"></p>
-                <button id="modalButton">Generate new math problem</button>
+                <button id="modalButton">Ďaľšia otázka</button>
             </div>
         </div>
 
@@ -148,7 +145,7 @@ if ($user) {
 
       function updateScores(isCorrect) {
         $.ajax({
-          url: 'update_scores.php',
+          url: 'backend/update_scores.php',
           type: 'POST',
           data: {
             username: username,

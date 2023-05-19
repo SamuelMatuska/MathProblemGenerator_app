@@ -16,7 +16,7 @@ foreach ($paths as $path) {
         $problem = preg_replace($mathPattern, '$1', $problem);
 
         if (preg_match($imagePattern, $problem, $imageMatches)) {
-            $problem = preg_replace($imagePattern, '<br><img class="problem-image" src="../mathproblems/'.$imageMatches[1].'"/>', $problem);
+            $problem = preg_replace($imagePattern, '<br><img class="problem-image" src="mathproblems/'.$imageMatches[1].'"/>', $problem);
         }
 
         $solution = $matches[3][$i];

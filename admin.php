@@ -65,6 +65,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
     </nav>
     <div class="container2">
         <h1>Welcome Admin. You are the boss!</h1>
+        <button href="backend/fetchskuska.php" style="margin-top:5px" class="round-btn btn-block">Upload excersises</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>

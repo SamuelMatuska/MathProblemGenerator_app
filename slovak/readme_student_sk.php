@@ -50,7 +50,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
                             <a class="nav-link active" href="readme_student_sk.php">Návod</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="math_problems_sk.php">Príklady</a>
+                            <a class="nav-link" href="../math_problems_sk.php">Príklady</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../backend/logout.php">Odhlásiť sa</a>
