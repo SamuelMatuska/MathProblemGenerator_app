@@ -31,8 +31,8 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
-    <link rel="stylesheet" href="list.css"> 
     <script src="backend/pdf.js"></script>
+    <link rel="stylesheet" href="final.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -50,7 +50,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
                             <a class="nav-link active" href="readme_student.php">Tutorial</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="backend/math_problems.php">Excercises</a>
+                            <a class="nav-link" href="math_problems.php">Excercises</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="backend/logout.php">Log out</a>
@@ -64,11 +64,13 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
                 </div>
             </div>
         </nav>
-    <div class="container text-center" id="readme">
-        <h1>Welcome Student. You are nothing!</h1>
-        <p>This is tutorial for you to know how to operate in this app!</p>
-    </div>
-    <button id="generatePDF" class="btn btn-primary">Generate PDF with instructions</button>
+        <div id="center">
+            <div class="container text-center" id="readme">
+                <h1>Welcome Student. You are nothing!</h1>
+                <p>This is tutorial for you to know how to operate in this app!</p>
+                <button id="generatePDF" class="btn btn-primary">Generate PDF with instructions</button>
+            </div>
+        </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>

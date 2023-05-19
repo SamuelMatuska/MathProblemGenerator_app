@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $("#export").click(function () {
         $.ajax({
-            url: 'backend/export.php',
+            url: 'export.php',
             method: 'GET',
             success: function (data) {
                 let csv = 'First Name,Last Name,Username,Student ID,Right answers,From total\n';

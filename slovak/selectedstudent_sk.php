@@ -116,22 +116,22 @@ if (isset($_GET['id'])) {
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-6 boxy-div text-center">
-                    <h1 class="mb-4">Edit User</h1>
+                    <h1 class="mb-4">Upraviť študenta</h1>
                     <?php if (!empty($message)) : ?>
                     <p><?php echo $message; ?></p>
                     <?php endif; ?>
                     <form method="POST" class="my-4">
-                    <label for="first_name">First Name:</label>
+                    <label for="first_name">Meno:</label>
                         <span><?php echo $user['first_name']; ?></span><br>
-                        <label for="last_name">Last Name:</label>
+                        <label for="last_name">Priezvisko:</label>
                         <span><?php echo $user['last_name']; ?></span><br>
-                        <label for="type">Type:</label>
+                        <label for="type">Typ:</label>
                         <select name="type">
                             <?php foreach ($folders as $folder) : ?>
                             <option value="<?php echo $folder; ?>" <?php if ($user['type'] === $folder) echo 'selected'; ?>><?php echo $folder; ?></option>
                             <?php endforeach; ?>
                         </select><br>
-                        <button type="submit" class="round-btn btn-block">Update</button>
+                        <button type="submit" class="round-btn btn-block">Vykonaj</button>
                     </form>
                 </div>
             </div>

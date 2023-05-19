@@ -34,13 +34,14 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List of students</title> 
-    <link rel="stylesheet" href="../list.css?v=<?php echo time(); ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" >
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" ></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js" ></script>
     <script src="../backend/csv.js"></script>
+    <link rel="stylesheet" href="../final.css">
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -53,6 +54,9 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link" href="admin_sk.php">Profil</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="readme_admin_sk.php">Návod</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" href="studentslist_sk.php">Zoznam študentov</a>
@@ -73,12 +77,12 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <table class="table table-striped table-hover" id="students">
             <thead>
                 <tr class="text-center">
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
-                    <th>Student ID</th>
-                    <th>Right answers</th>
-                    <th>From total</th>
+                    <th>Meno</th>
+                    <th>Priezvisko</th>
+                    <th>Užívateľské meno</th>
+                    <th>Číslo študenta</th>
+                    <th>Počet správnych odpovedí</th>
+                    <th>Celkový počet zodpovedaných</th>
                 </tr>
             </thead>
             <tbody>
@@ -86,7 +90,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     if ($user['studentID'] == 187) {
                         continue;}?>
                     <tr class="text-center">
-                        <td><a href="selectedstudent_sk.php?id=<?php echo $user['id']; ?>"><?php echo $user['first_name']; ?></a></td>
+                        <td><a href="selectedstudent.php?id=<?php echo $user['id']; ?>"><?php echo $user['first_name']; ?></a></td>
                         <td><?php echo $user['last_name']; ?></a></td>
                         <td><?php echo $user['username']; ?></a></td>
                         <td><?php echo $user['studentID']; ?></a></td>
@@ -97,8 +101,10 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </tbody>
         </table>
     </div>
-    <button id="export" class="btn btn-primary">Export as CSV</button>
-    <script>
+    <div id="center">
+    <button id="export" class="btn btn-primary">Exportovať ako CSV</button>
+    </div>
+        <script>
         jQuery(document).ready(function($){
             $('#students').DataTable({
                 

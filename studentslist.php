@@ -34,13 +34,14 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List of students</title> 
-    <link rel="stylesheet" href="list.css?v=<?php echo time(); ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" >
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" ></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js" ></script>
     <script src="backend/csv.js"></script>
+    <link rel="stylesheet" href="final.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -68,7 +69,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <img src="Flag_of_Slovakia.png" alt="Slovak Flag" style="height:30px; width:45px;">
                             </a>
                     </li>
-                </ul>
+        </ul>
             </div>
         </div>
     </nav>
@@ -100,7 +101,10 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </tbody>
         </table>
     </div>
+    <div id="center">
     <button id="export" class="btn btn-primary">Export as CSV</button>
+    </div>
+    
     <script>
         jQuery(document).ready(function($){
             $('#students').DataTable({
