@@ -46,6 +46,7 @@ if (isset($_SESSION['error'])) {
     <script src="backend/script.js"></script>
 </head>
 <body>
+    <a href="slovak/index_sk.php"><img src="Flag_of_Slovakia.png" alt="Slovak Flag" style="height:30px; width:45px;"></a>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
             <form action="backend/register.php" method="POST">

@@ -31,6 +31,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
     <script src="../backend/script.js"></script>
 </head>
 <body>
+    <a href="../index.php"><img src="../Flag_of_the_United_Kingdom.svg" alt="English Flag" style="height:30px; width:45px;"></a>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
             <form action="../backend/register.php" method="POST">
