@@ -65,10 +65,10 @@ if ($user) {
                             <a class="nav-link" href="student.php">Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="readme_student.php">Tutorial</a>
+                            <a class="nav-link" href="readme_student.php">Tutorial</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="math_problems.php">Excersises</a>
+                            <a class="nav-link active" href="math_problems.php">Excercises</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="backend/logout.php">Log out</a>

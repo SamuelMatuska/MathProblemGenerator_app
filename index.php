@@ -20,6 +20,21 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
         exit();
     }
 }
+
+// Check for a success message
+if (isset($_SESSION['success'])) {
+    echo '<p class="success">' . $_SESSION['success'] . '</p>';
+    // Unset the success message so it doesn't display on page refresh
+    unset($_SESSION['success']);
+}
+
+// Check for an error message
+if (isset($_SESSION['error'])) {
+    echo '<p class="error">' . $_SESSION['error'] . '</p>';
+    // Unset the error message so it doesn't display on page refresh
+    unset($_SESSION['error']);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

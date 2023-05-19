@@ -67,9 +67,13 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
         <div id="center">
             <div class="container text-center" id="readme">
                 <h1>Welcome Student. You are nothing!</h1>
-                <p>This is tutorial for you to know how to operate in this app!</p>
-                <button id="generatePDF" class="btn btn-primary">Generate PDF with instructions</button>
+                <p style="overflow-wrap: break-word;" >This is tutorial for you to know how to operate in this app! As a student you have assigned exercises from your teacher. You can find them in "Exercises" in navigation bar.
+                    Also on your profile you can see how many points you got from exercises. Lastly, in navigation bar there is button for changing language and loging out!
+                </p>
             </div>
+        </div>
+        <div id="center">
+            <button id="generatePDF" class="btn btn-primary">Generate PDF with instructions</button>
         </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>

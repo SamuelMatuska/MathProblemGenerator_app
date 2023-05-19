@@ -39,7 +39,6 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" >
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" ></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js" ></script>
-    <script src="backend/csv.js"></script>
     <link rel="stylesheet" href="final.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -102,9 +101,8 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </table>
     </div>
     <div id="center">
-    <button id="export" class="btn btn-primary">Export as CSV</button>
-    </div>
-    
+    <button id="export">Export as CSV</button>
+    </div> 
     <script>
         jQuery(document).ready(function($){
             $('#students').DataTable({
@@ -112,6 +110,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             });
         });
     </script>
+    <script src="backend/csv.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>

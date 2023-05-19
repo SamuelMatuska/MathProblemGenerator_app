@@ -1,10 +1,10 @@
 $(document).ready(function () {
     $("#export").click(function () {
         $.ajax({
-            url: 'backend/export.php',
+            url: '../backend/export.php',
             method: 'GET',
             success: function (data) {
-                let csv = 'First Name,Last Name,Username,Student ID,Right answers,From total\n';
+                let csv = 'Meno, Priezvisko , Login,Studentske ID,Spravne odpovede,Zo vsetkych\n';
                 data.forEach(function(row) {
                     csv += row.first_name+',';
                     csv += row.last_name+',';
@@ -16,7 +16,7 @@ $(document).ready(function () {
                 let hiddenElement = document.createElement('a');
                 hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
                 hiddenElement.target = '_blank';
-                hiddenElement.download = 'students.csv';
+                hiddenElement.download = 'studenti.csv';
                 hiddenElement.click();
             }
         });

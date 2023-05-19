@@ -67,10 +67,16 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
     </nav>
     <div id="center">
         <div class="container text-center" id="readme">
-            <h1>Welcome Admin. You are the boss!</h1>
-            <p>This is tutorial for you to know how to operate in this app!</p>
-            <button id="generatePDF" class="btn btn-primary">Generate PDF with instructions</button>
+            <h1>How to basic, for teacher!</h1>
+            <p style="overflow-wrap: break-word;">This is read me note for you to know how to operate in this app! In navigation bar you can access list of your students. There you can see all your students and how many points they already have from your assigments. 
+            Also by clicking on students name you can assign him new math problems. On your profile page you can upload all folders of problems into database. Last thing, in navbar you have choice to change language and also to log out.
+            </p>
+            <br>
+            <p>Enjoy :) !!</p>
         </div>
+    </div>
+    <div id="center">
+        <button id="generatePDF">Generate PDF with instructions</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
