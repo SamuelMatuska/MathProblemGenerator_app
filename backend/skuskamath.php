@@ -28,21 +28,23 @@ if ($user) {
     if ($mathProblem) {
         $problemId = $mathProblem['id'];
     }
-}
+} 
 
 ?>
 
 <html>
 <head>
-    <!-- Load MathJax -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+   <!-- Load MathJax -->
+   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <!-- Load MathQuill -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.4.0/math.min.js"></script>
-    <link rel="stylesheet" href="../style_form.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.4.0/math.min.js"></script>   
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="../final.css">
+    <link rel="stylesheet" href="../final.css">
     <script src="latexToJS/latex-to-js.js"></script>
     <script src="mathscript.js"></script>
     <script type='text/javascript'>
@@ -50,25 +52,50 @@ if ($user) {
     </script>
 </head>
 <body>
-    <nav>
-        <a href="../student.php">Student home page</a>
-        <a href="math_problems.php">Exercises</a>
-        <a href="logout.php">LOG OUT</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">Math Gen app</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="student_sk.php">Profil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="readme_student_sk.php">Návod</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="math_problems_sk.php">Príklady</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../backend/logout.php">Odhlásiť sa</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../readme_student.php">
+                                <img src="../Flag_of_the_United_Kingdom.svg" alt="English Flag" style="height:30px; width:45px;">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
     </nav>
 
     <?php if (!empty($mathProblem)) : ?>
-        <h2>Math Problem</h2>
-        <div>
-            <h3>Problem ID: <?php echo $mathProblem['id']; ?></h3>
-            <h4>Problem Statement:</h4>
-            <p><?php echo $mathProblem['problem']; ?></p>
-        </div>
+        
+        <div id="container">
+            <h2 id='problemid'>Problem ID: <?php echo $mathProblem['id']; ?></h2>
+            <h3 id="problemstatement">Problem Statement:</h4>
+            <p id="text"><?php echo $mathProblem['problem']; ?></p>
+        
 
         <a style="text-decoration: underline" href="https://inspera.atlassian.net/wiki/spaces/KB/pages/62062830/MathQuill+symbols" target="_blank">Documentation on how to write Math operators</a>
         <div style="padding-bottom:10px">Your answer:</div>
         <div id="answer" class="mathquill-editable"></div>
         <input type="hidden" id="correct_answer" value="<?php echo htmlspecialchars($mathProblem['solution']); ?>">
         <button id="check_button">Submit Answer</button>
+      </div>
         <!-- <button id="reset_button"><a href="math_problems.php">Generate new question</a></button> -->
         <div id="myModal" class="modal">
             <div class="modal-content">
@@ -148,6 +175,8 @@ if ($user) {
     <?php else : ?>
         <p>No math problems found.</p>
     <?php endif; ?>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>
